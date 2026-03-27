@@ -14,7 +14,7 @@ class CounterApp(QWidget):
 
     def increment(self):
         self.count += 1
-        self.label.setText(str(self.count))
+        self.label.seText(str(self.count))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
