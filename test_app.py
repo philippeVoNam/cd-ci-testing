@@ -1,5 +1,6 @@
 import pytest
 from app import CounterApp
+from PySide6.QtCore import Qt  # Add this import
 
 def test_counter_increment(qtbot):
     # Initialize the widget
@@ -10,7 +11,7 @@ def test_counter_increment(qtbot):
     assert window.label.text() == "0"
 
     # Simulate a mouse click on the button
-    qtbot.mouseClick(window.button, "left")
+    qtbot.mouseClick(window.button, Qt.MouseButton.LeftButton)
 
     # Check if the label updated
     assert window.label.text() == "1"
