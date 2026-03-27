@@ -40,7 +40,7 @@ jobs:
   build:
     needs: test  # Only build if tests pass
     runs-on: windows-latest
-    if: github.ref == 'refs/heads/main' # Only build on pushes to main
+    if: github.ref == 'refs/heads/master' # Only build on pushes to main
 
     steps:
       - uses: actions/checkout@v4
