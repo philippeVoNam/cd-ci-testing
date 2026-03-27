@@ -32,6 +32,8 @@ jobs:
             x11-utils
           pip install -r requirements.txt
       - name: Run Tests
+        env:
+          PYTEST_QT_API: pyside6  # This tells pytest-qt to use PySide6
         run: pytest
 
   # --- BUILD STAGE ---
