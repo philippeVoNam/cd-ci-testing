@@ -1,0 +1,46 @@
+name: PySide6 CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  # --- TEST STAGE ---
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxcb-cursor0 libxkbcommon-x11-0 x11-utils
+          pip install -r requirements.txt
+      - name: Run Tests
+        run: pytest
+
+  # --- BUILD STAGE ---
+  build:
+    needs: test  # Only build if tests pass
+    runs-on: windows-latest
+    if: github.ref == 'refs/heads/main' # Only build on pushes to main
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Package with PyInstaller
+        run: |
+          pyinstaller --noconfirm --onefile --windowed app.py
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows-Executable
+          path: dist/app.exe
