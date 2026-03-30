@@ -13,8 +13,8 @@ class CounterApp(QWidget):
         self.layout.addWidget(self.button)
 
     def increment(self):
-        self.count += 1
-        self.label.seText(str(self.count))
+        self.count += 10
+        self.label.setText(str(self.count))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
